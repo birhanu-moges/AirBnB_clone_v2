@@ -121,19 +121,14 @@ class HBNBCommand(cmd.Cmd):
         elif args not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        cls = self.all_classes[args[0]]
-            obj = cls()
-            if len(args) > 1:
-                for i in range(1, len(args)):
-                    pair = args[i].split('=')
-                    if len(pair) == 2:
-                        pair[1] = pair[1].replace('_', ' ')
-                        try:
-                            setattr(obj, pair[0], eval(pair[1]))
-                        except (SyntaxError, NameError):
-                            setattr(obj, pair[0], pair[1])
-            print(obj.id)
-            models.storage.save()
+
+        obj = eval("{}()".format(args[0]))
+        for param in args[1:]:
+            my_param = param.split("=")
+            my_param[1] = my_param[1].replace('_', ' ')
+            setattr(obj, my_param[0], eval(my_param[1]))
+        obj.save()
+        print("{}".format(obj.id))
 
     def help_create(self):
         """ Help information for the create method """
