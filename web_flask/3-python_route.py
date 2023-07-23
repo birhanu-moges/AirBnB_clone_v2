@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Script to start a Flask web application with 3 view functions """
+"""Add third view func that redirects and has default val for variable """
 
 from flask import Flask
 
@@ -27,5 +27,13 @@ def c_text(text):
     return 'C {}'.format(text)
 
 
+@app.route('/python/')
+@app.route('/python/<text>')
+def python_text(text='is cool'):
+    """ replace more text with another variable. """
+    text = text.replace('_', ' ')
+    return 'Python {}'.format(text)
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)i

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Script to start a Flask web application with 3 view functions """
+"""Add fourth view function that displays var only if is integer """
 
 from flask import Flask
 
@@ -25,6 +25,21 @@ def c_text(text):
     """ replace text with variable. """
     text = text.replace('_', ' ')
     return 'C {}'.format(text)
+
+
+@app.route('/python/')
+@app.route('/python/<text>')
+def python_text(text='is cool'):
+    """ replace more text with another variable. """
+    text = text.replace('_', ' ')
+    return 'Python {}'.format(text)
+
+
+@app.route('/number/<int:n>')
+def number_text(n):
+    """ replace with int only if given int. """
+    n = str(n)
+    return '{} is a number'.format(n)
 
 
 if __name__ == '__main__':
